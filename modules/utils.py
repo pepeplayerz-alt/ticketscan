@@ -249,6 +249,31 @@ def load_css():
             background-color: #5C8BB5 !important;
             color: white !important;
         }
+
+        /* ===== AUTH TABS ===== */
+        .stTabs [data-baseweb="tab-list"] {
+            gap: 0;
+            background: white;
+            border: 1px solid #DCE1E5;
+            border-radius: 4px;
+            padding: 4px;
+        }
+        .stTabs [data-baseweb="tab"] {
+            flex: 1;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #7F8C8D;
+            border-radius: 2px;
+        }
+        .stTabs [aria-selected="true"] {
+            background-color: #5C8BB5 !important;
+            color: white !important;
+        }
+        .stTabs [data-baseweb="tab-highlight"] { display: none; }
+        .stTabs [data-baseweb="tab-border"] { display: none; }
         
         </style>
     """, unsafe_allow_html=True)
@@ -264,27 +289,23 @@ def render_app_header():
     """, unsafe_allow_html=True)
 
 
-def render_receipt_card(merchant, date, total, currency, category, summary, image_path=None, key=None):
-    """Render a single receipt as a mobile card with embedded delete button. Returns True if delete clicked."""
-    
+def render_receipt_card(merchant, date, total, currency, category, summary, file_url=None, key=None):
     view_btn = ""
-    if image_path:
+    if file_url:
         view_btn = (
             f'<div style="margin-top: 10px; text-align: right;">'
-            f'<a href="app/static/{image_path}" target="_blank" style="'
+            f'<a href="{file_url}" target="_blank" style="'
             f'text-decoration: none; color: white; background-color: #5C8BB5; '
             f'font-size: 11px; font-weight: 700; border: 1px solid white; '
             f'padding: 4px 8px; border-radius: 4px; text-transform: uppercase;">'
             f'View Ticket</a></div>'
         )
 
-    # Use a container with a specific marker class to target with CSS
     with st.container():
-        # Marker for CSS targeting :has()
         st.markdown('<div class="receipt-card-marker" style="display:none;"></div>', unsafe_allow_html=True)
-        
+
         c1, c2 = st.columns([0.85, 0.15])
-        
+
         with c1:
             st.markdown(f"""
                 <div class="card-content">
@@ -299,12 +320,12 @@ def render_receipt_card(merchant, date, total, currency, category, summary, imag
                     </div>
                 </div>
             """, unsafe_allow_html=True)
-            
+
         with c2:
             st.markdown("<div style='height: 5px'></div>", unsafe_allow_html=True)
             if st.button("X", key=key, type="secondary", use_container_width=True):
                 return True
-    
+
     return False
 
 
