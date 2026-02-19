@@ -274,6 +274,21 @@ def load_css():
         }
         .stTabs [data-baseweb="tab-highlight"] { display: none; }
         .stTabs [data-baseweb="tab-border"] { display: none; }
+
+        /* ===== BOTTOM USER BAR ===== */
+        .bottom-bar {
+            margin-top: 2rem;
+            padding: 12px 0 4px 0;
+            border-top: 1px solid #E9ECEF;
+            text-align: center;
+        }
+        .bottom-bar-email {
+            font-size: 11px;
+            font-weight: 600;
+            color: #95A5A6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
         
         </style>
     """, unsafe_allow_html=True)

@@ -89,12 +89,6 @@ def main():
     user = st.session_state.user
     load_css()
 
-    with st.sidebar:
-        st.markdown(f"**{user['email']}**")
-        if st.button("Logout", use_container_width=True):
-            del st.session_state.user
-            st.rerun()
-
     render_app_header()
 
     if "page" not in st.session_state:
@@ -137,6 +131,16 @@ def main():
         page_history(user)
     elif st.session_state.page == "stats":
         page_stats(user)
+
+    st.markdown(
+        f"""<div class="bottom-bar">
+            <span class="bottom-bar-email">{user['email']}</span>
+        </div>""",
+        unsafe_allow_html=True,
+    )
+    if st.button("Logout", key="btn_logout", use_container_width=True):
+        del st.session_state.user
+        st.rerun()
 
 
 def page_scan(user):
